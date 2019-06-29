@@ -16,8 +16,15 @@ public class FlowLayout extends ViewGroup {
     private List<List<View>> mAllViews = new ArrayList<>();
     private List<Integer> mLineHeights = new ArrayList<>();
 
+    private static final int[] LL = new int[android.R.attr.maxLines];
+    private int mMaxLines;
+
     public FlowLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+//        TypedArray a = context.obtainStyledAttributes(attrs, LL);
+//        mMaxLines = a.getInt(0, Integer.MAX_VALUE);
+//        a.recycle();
     }
 
     @Override
@@ -59,7 +66,12 @@ public class FlowLayout extends ViewGroup {
             int cHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 
             //当前view宽度之和大于FlowLayout宽度时，换行处理
-            if (lineWidth + cWidth > widthSize) {
+            if (lineWidth + cWidth > widthSize - (getPaddingLeft() + getPaddingRight())) {
+
+                if (mMaxLines > 0 && mMaxLines < mLineHeights.size()) {
+                    break;
+                }
+
                 height += lineHeight;
 
                 mLineHeights.add(lineHeight);
@@ -91,14 +103,17 @@ public class FlowLayout extends ViewGroup {
             height = heightSize;
         } else if (heightMode == MeasureSpec.AT_MOST) {
             height = Math.min(heightSize, height);
+            height = height + getPaddingBottom() + getPaddingTop();
+        } else if (heightMode == MeasureSpec.UNSPECIFIED) {
+            height = height + getPaddingBottom() + getPaddingTop();
         }
         setMeasuredDimension(widthSize, height);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int left = 0;
-        int top = 0;
+        int left = getPaddingLeft();
+        int top = getPaddingTop();
         int lineCount = mAllViews.size();
 
         for (int i = 0; i < lineCount; i++) {
@@ -116,7 +131,7 @@ public class FlowLayout extends ViewGroup {
 
                 left += child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
             }
-            left = 0;
+            left = getPaddingLeft()  ;
             top += lineHeight;
         }
     }

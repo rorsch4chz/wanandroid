@@ -6,23 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".FlowLayoutActivity">
 
-    <com.bz.flowlayout.view.FlowLayout
-        android:id="@+id/flow_layout"
+    <com.bz.flowlayout.view.TagFlowLayout
+        android:id="@+id/tag_flow_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.bz.flowlayout.view.FlowLayout>
-
+    </com.bz.flowlayout.view.TagFlowLayout>
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add"
-        android:onClick="add"
+        android:text="GetSelectedString"
+        android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/flow_layout" />
+        app:layout_constraintTop_toBottomOf="@id/tag_flow_layout"
+        android:onClick="getSelectedString"/>
+
+    <Button
+        android:id="@+id/changeDataButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ChangeData"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

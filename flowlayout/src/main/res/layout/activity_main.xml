@@ -23,7 +23,6 @@
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -31,11 +30,12 @@
         android:text="FlexboxLayoutManager"
         android:textAllCaps="false" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appcompat_button"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="context"
+        android:layout_marginTop="10dp"
+        android:onClick="TagFlowLayout"
+        android:text="TagFlowLayoutActivity"
         android:textAllCaps="false" />
 
 </LinearLayout>
