@@ -38,4 +38,11 @@
         android:text="TagFlowLayoutActivity"
         android:textAllCaps="false" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="DialogActivity"
+        android:text="DialogActivity"
+        android:textAllCaps="false" />
 </LinearLayout>

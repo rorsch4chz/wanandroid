@@ -27,4 +27,8 @@ public class MainActivity extends AppCompatActivity {
     public void TagFlowLayout(View view) {
         startActivity(new Intent(this, TagFlowLayoutActivity.class));
     }
+
+    public void DialogActivity(View view) {
+        startActivity(new Intent(this, DialogActivity.class));
+    }
 }

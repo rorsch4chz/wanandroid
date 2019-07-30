@@ -1,9 +1,12 @@
 package com.bz.flowlayout.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.bz.flowlayout.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +19,22 @@ public class FlowLayout extends ViewGroup {
     private List<List<View>> mAllViews = new ArrayList<>();
     private List<Integer> mLineHeights = new ArrayList<>();
 
-    private static final int[] LL = new int[android.R.attr.maxLines];
-    private int mMaxLines;
+    protected int mMaxLines;
+
+    public int getMaxLines() {
+        return mMaxLines;
+    }
+
+    public void setMaxLines(int maxLines) {
+        mMaxLines = maxLines;
+    }
 
     public FlowLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-//        TypedArray a = context.obtainStyledAttributes(attrs, LL);
-//        mMaxLines = a.getInt(0, Integer.MAX_VALUE);
-//        a.recycle();
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FlowLayout);
+        mMaxLines = a.getInt(R.styleable.FlowLayout_maxLines, Integer.MAX_VALUE);
+        a.recycle();
     }
 
     @Override
@@ -68,7 +78,7 @@ public class FlowLayout extends ViewGroup {
             //当前view宽度之和大于FlowLayout宽度时，换行处理
             if (lineWidth + cWidth > widthSize - (getPaddingLeft() + getPaddingRight())) {
 
-                if (mMaxLines > 0 && mMaxLines < mLineHeights.size()) {
+                if (mMaxLines > 0 && mMaxLines <= mLineHeights.size()) {
                     break;
                 }
 
@@ -131,7 +141,7 @@ public class FlowLayout extends ViewGroup {
 
                 left += child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
             }
-            left = getPaddingLeft()  ;
+            left = getPaddingLeft();
             top += lineHeight;
         }
     }

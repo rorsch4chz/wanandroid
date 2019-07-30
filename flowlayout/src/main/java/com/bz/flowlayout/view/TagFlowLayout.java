@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Author: 柏洲
  * Email:  baizhoussr@gmail.com
@@ -32,14 +35,20 @@ public class TagFlowLayout extends FlowLayout implements TagAdapter.OnDataChange
         onDataChanged();
     }
 
-    @Override
-    public void onDataChanged() {
+    public void onDataChanged(List<Integer> selected) {
         removeAllViews();
         TagAdapter adapter = mAdapter;
         for (int i = 0; i < adapter.getItemCount(); i++) {
             View view = adapter.createView(LayoutInflater.from(getContext()), this, i);
             adapter.bindView(view, i);
             addView(view);
+
+            /**
+             * 将已选择的item置为选中状态
+             */
+            if (selected != null) {
+                view.setSelected(selected.contains(i));
+            }
 
             if (view.isSelected()) {
                 mAdapter.onItemSelected(view, i);
@@ -49,6 +58,11 @@ public class TagFlowLayout extends FlowLayout implements TagAdapter.OnDataChange
 
             bindViewMethod(view, i);
         }
+    }
+
+    @Override
+    public void onDataChanged() {
+        onDataChanged(null);
     }
 
     /**
@@ -111,6 +125,22 @@ public class TagFlowLayout extends FlowLayout implements TagAdapter.OnDataChange
             }
         }
         return 0;
+    }
+
+    /**
+     * 获取所有已选择的view的postion集合
+     *
+     * @return
+     */
+    public List<Integer> getPositionsOfSelectView() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < getChildCount(); i++) {
+            View view = getChildAt(i);
+            if (view.isSelected()) {
+                list.add(i);
+            }
+        }
+        return list;
     }
 
 
