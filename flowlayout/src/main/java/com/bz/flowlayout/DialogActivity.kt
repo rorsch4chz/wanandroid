@@ -1,5 +1,6 @@
 package com.bz.flowlayout
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.view.Gravity
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import cn.scshuimukeji.comm.ui.multiple.MultipleLayoutSupport
 import cn.scshuimukeji.comm.ui.multiple.MultipleViewAdapter
+import com.bz.flowlayout.bean.SortBean
+import com.bz.flowlayout.bean.SortStatus
 import kotlinx.android.synthetic.main.dialog_activity.*
 
 /**
@@ -28,6 +31,32 @@ data class FilterBean(var filterName: String, var filterType: String, var attrib
     }
 }
 
+data class Templates(
+        val templates: List<Template>
+)
+
+data class Template(
+        val attributes: List<Attribute>,
+        val name: String
+)
+
+data class Attribute(
+        val fileds: List<Filed>,
+        val name: String
+)
+
+data class Filed(
+        val format: String,
+        val items: List<Item>,
+        val placeholder: Any,
+        val valueType: String
+)
+
+data class Item(
+        val displayName: String,
+        val value: String
+)
+
 
 /**
  * Author by 柏洲
@@ -45,8 +74,18 @@ class DialogActivity : AppCompatActivity() {
 
         initDialog()
 
+        initSortView()
+
 
         button.setOnClickListener { dialog.show() }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initSortView() {
+        sort_view_group.setData(mutableListOf(
+                SortBean("销量", 1, SortStatus.SELECTED, mutableListOf("只能选中", "")),
+                SortBean("价格", 0),
+                SortBean("离我最近", 0)))
     }
 
     private fun initRecyclerView(recyclerView: RecyclerView) {

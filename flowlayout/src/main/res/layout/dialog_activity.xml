@@ -12,4 +12,10 @@
         android:textAllCaps="false"
         android:textSize="14sp" />
 
+    <com.bz.flowlayout.view.SortViewGroup
+        android:id="@+id/sort_view_group"
+        android:layout_width="match_parent"
+        android:background="@color/comm_color_FFFFFF"
+        android:layout_height="@dimen/dpx_44" />
+
 </LinearLayout>
